@@ -325,8 +325,8 @@ MuSCI <- function(data.train,
                lambda = lambda,
                lower.limits = 0,
                upper.limits = 1)
-  w1 = coef(fit, s = lambda)[2:s]; w1
-  w2 = w1*(s-1)/s; w2 # to ensure at least 1/s weight assigned to target site
+  w1 = coef(fit, s = lambda)[2:s]
+  w2 = w1*(s-1)/s # to ensure at least 1/s weight assigned to target site
   
   fit3 = glmnet(x = IF_diff, y = IF_s1, 
                 penalty.factor = chi^2,
@@ -335,7 +335,7 @@ MuSCI <- function(data.train,
                 lambda = lambda,
                 lower.limits = 0,
                 upper.limits = 1/s)
-  w3 = coef(fit3, s = lambda)[2:s]; w3
+  w3 = coef(fit3, s = lambda)[2:s]
   
   ### Use federated weights
   rhat_fed1 = (1-sum(w1))*rhat_tgSt + sum(w1*rhat_ntgt)
@@ -426,7 +426,7 @@ Estimate_omega_np = function(x, x_target, x.pred, x_target.pred) {
   fit <- cv.glmnet(x=x.all, y=z.all, nfolds=5, family='binomial')
   src.predict = predict(fit, x.pred, type="response", lambda=fit$lambda.min)
   
-  omega = (1-src.predict)/src.predict*nrow(x.pred)/nrow(x_target.pred)
+  omega = (1-src.predict)/src.predict # *nrow(x.pred)/nrow(x_target.pred)
   omega = pmax(pmin(omega, 20), 0.05)
   return(omega)
 }
