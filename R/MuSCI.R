@@ -14,19 +14,24 @@ library(randomForest)
 library(SuperLearner)
 
 #### Main function MuSIC()
-MuSCI <- function(data.train, data.test, 
-                  alpha=0.1, conf.score="ASR",
-                  Y.name, T.name, tgt.site.name, 
+MuSCI <- function(data.train, 
+                  data.test, 
+                  alpha=0.1, 
+                  conf.score="ASR",
+                  Y.name, 
+                  T.name, 
+                  tgt.site.name, 
                   ps.Library="SL.glm",  
                   m.Library="SL.glm", 
-                  p1=0.5, seed=10012) {
+                  p1=0.5, 
+                  seed=10012) {
   
   #### argument description
   # --  data.train: training data, a data.frame() objective with defined variable names
   # --  data.test: testing data, which should have the same structure as the training data
-  # --  alpha: desired predition interval level
+  # --  alpha: desired coverage level of the prediction intervals
   # --  Y.name: name of outcome in the training and testing data
-  # --  T.name: name of the variable for recording site information for each subject
+  # --  T.name: name of the site variable in training data
   # --  tgt.site.name: name of the target site
   # --  ps.Library: SuperLearner library for fitting the propensity score
   # --              use SuperLearner::listWrappers() to see all possible choices
@@ -51,10 +56,7 @@ MuSCI <- function(data.train, data.test,
     data.train$Site[data.train$Site==non.tgt.site.names[k-1]] <- k*999 
   }
   data.train$Site <- data.train$Site/999
-  
   covar.names <- names(data.train)[names(data.train)%in%c(Y.name, "Site")==F]
-  if(sum(is.na(ps.vars))!=0) { ps.vars <- covar.names }
-  if(sum(is.na(m.vars))!=0)  { m.vars  <- covar.names }
   
   D1 <- D2 <- data.frame()
   set.seed(seed)
@@ -291,7 +293,7 @@ MuSCI <- function(data.train, data.test,
       D11_sk <- D11_sk %>% mutate(score = as.numeric(CFS1[[k-1]]<=theta))
       y = D11_sk$score
       x = D11_sk[,covar.names]
-      ps.fit = SuperLearner(Y=y, X=x, family=binomial(), SL.library=SL.library)
+      ps.fit = SuperLearner(Y=y, X=x, family=binomial(), SL.library=ps.Library)
       p_CFS_sk = as.numeric(predict(ps.fit, D2_sk[,covar.names])$library.predict)
       return(p_CFS_sk)
     }
@@ -403,8 +405,18 @@ MuSCI <- function(data.train, data.test,
     PI.tgSt <- data.frame(lwr= pred_y0.lw-rhat_tgSt, upr= pred_y0.up+rhat_tgSt)
     PI.eqwt <- data.frame(lwr= pred_y0.lw-rhat_eqwt, upr= pred_y0.up+rhat_eqwt)
   }
-  return(list(PI.fed1, PI.fed2, PI.fed3, PI.pool, PI.tgSt, PI.eqwt,
-              weights1=w1, weights2=w2, weights3=w3, Chi=chi))
+  colnames(PI.fed1) <- colnames(PI.fed2) <- colnames(PI.fed3) <- 
+    colnames(PI.pool) <- colnames(PI.tgSt) <- colnames(PI.eqwt) <- c("lower", "upper")
+  return(list(PI.fed1=PI.fed1, 
+              PI.fed2=PI.fed2, 
+              PI.fed3=PI.fed3, 
+              PI.pool=PI.pool, 
+              PI.tgSt=PI.tgSt, 
+              PI.eqwt=PI.eqwt,
+              weights1=w1, 
+              weights2=w2, 
+              weights3=w3, 
+              Chi=chi))
 }
 
 Estimate_omega_np = function(x, x_target, x.pred, x_target.pred) {

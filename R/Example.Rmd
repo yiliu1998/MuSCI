@@ -1,0 +1,98 @@
+---
+title: "An Illustrative Example for Multi-Source Conformal Inference"
+author: "Yi Liu"
+date: "May 9, 2024"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Data generation
+
+We use the following code to generate data of 5 sites, with a target site and 4 source sites. 
+
+```{r}
+set.seed(10012)
+N <- 500
+s <- 5
+sT <- sort(rep(1:s, N)) # site variable
+
+X1 <- runif(N*s, -3, 3) # six covariates
+X2 <- rnorm(N*s, mean=1*sT, sd=1)
+X3 <- rchisq(N*s, df=10, ncp=sT-1)
+X4 <- X1*X2
+X5 <- X1*X3
+X6 <- X2^2
+
+beta <- c(1,1,1,.1,.1,.1)
+Y <- cbind(X1,X2,X3,X4,X5,X6) %*% as.matrix(beta, ncol=1) + rnorm(N*s) # outcome
+
+e.x <- 1/(1+exp(0.5*X1^2-0.1*X2-0.2*X3))
+R <- rbinom(N*s, size=1, prob=e.x) # missingness indicator (0 indicates missing)
+mean(R)       # non-missingness rate in the data
+Y[R==0] <- NA # assign NA to all outcomes with R=0
+data.train <- data.frame(cbind(X1,X2,X3,X4,X5,X6), Y=Y, sT=sT)
+
+#### an independent set of testing data from the target site
+N.test <- 1000
+X1 <- runif(N.test, -3, 3)
+X2 <- rnorm(N.test, mean=1, sd=1)
+X3 <- rchisq(N.test, df=10, ncp=0)
+X4 <- X1*X2
+X5 <- X1*X3
+X6 <- X2^2
+
+beta <- c(1,1,1,.1,.1,.1)
+Y <- cbind(X1,X2,X3,X4,X5,X6) %*% as.matrix(beta, ncol=1) + rnorm(N.test)
+e.x <- 1/(1+exp(0.5*X1^2-0.1*X2-0.2*X3))
+R <- rbinom(N.test, size=1, prob=e.x)
+mean(R) 
+Y[R==0] <- NA
+data.test <- data.frame(cbind(X1,X2,X3,X4,X5,X6), Y=Y)
+```
+
+## Method implementation and output 
+
+To implement our method, one should first load the source R file `MuSCI.R`.  
+
+```{r message=FALSE}
+source("MuSCI.R") 
+```
+
+Next, we input the generated data above to the `MuSCI()` function. To view methods that can be used for fitting the nuisance functions, one can run the following code.
+
+```{r}
+# SuperLearner::listWrappers()
+```
+
+Based on the data generated above, we implement our method using the following code. We specify `alpha=0.1` for prediction intervals with desired 90% coverage level, we choose the local ASR as the interested conformal score, we specify the names of outcome and site variables in our data (`Y` and `sT` respectively to `Y.name` and `T.name`), and we choose methods for fitting the nuisance functions from `SuperLearner::listWrappers()`. 
+
+```{r warning=FALSE}
+results <- MuSCI(data.train=data.train, 
+                 data.test=data.test, 
+                 alpha=0.1, 
+                 conf.score="localASR",
+                 Y.name="Y", 
+                 T.name="sT", 
+                 tgt.site.name=1, 
+                 ps.Library="SL.glm",  
+                 m.Library="SL.glm", 
+                 p1=0.5, 
+                 seed=1331)
+```
+
+Finally, one can see the results of prediction from the `results` list returned by running the `MuSCI()` function. The list contains the following elements: `PI.fed1`, `PI.fed2`, and `PI.fed3` are data frames for the individual-specific prediction intervals on missing outcomes in the testing data by proposed federated methods using weight I, II and III, respectively. `PI.pool`, `PI.tgSt` and `PI.eqwt` are data frames for prediction intervals using pooling, target site only, and equal weights methods. `weights1`, `weights2` and `weights3` are the calculated weights by federated weight I, II and III, respectively, on source sites. Finally, `Chi` is the $\chi_k$ values in the penalization procedure, which measures the difference of conformal scores between a source and the target site. 
+
+For example, one can print the prediction intervals by the federated weight II method as follows. 
+
+```{r}
+print(head(results$PI.fed2, 10))
+```
+
+```{r}
+results$weights2
+results$Chi
+```
+
