@@ -12,7 +12,7 @@ Authors@R: c(
 		role="aut"),
     person("Larry", "Han", 
 		email="lar.han@northeastern.edu", 
-		role="aut"),
+		role="aut")
 )
 Maintainer: Yi Liu <yi.iu.biostat@gmail.com>
 Description: The package implements the conformal inference for constructing individualized preidction interval on missing outcome for a target site, 
