@@ -1,7 +1,7 @@
 Package: MuSCI
 Type: Package
 Title: Multi-Source Conformal Inference Under Distribution Shift
-Version: 0.1.0
+Version: 1.1
 Authors@R: c(
     person("Yi", "Liu", 
 		email="yi.iu.biostat@gmail.com", 
