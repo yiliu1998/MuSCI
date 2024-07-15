@@ -5,8 +5,7 @@ An R package with illustrative example implementing multi-source conformal infer
 To install the latest version of the R package from GitHub, please run following commands in R:
 
 ```r
-if (!require("devtools"))
-install.packages("devtools")
+if (!require("devtools")) install.packages("devtools")
 devtools::install_github("yiliu1998/Multi-Source-Conformal")
 ```
 
