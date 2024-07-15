@@ -3,22 +3,19 @@ Type: Package
 Title: Multi-Source Conformal Inference Under Distribution Shift
 Version: 1.1
 Authors@R: c(
-    person("Yi", "Liu", 
-           email = "yi.iu.biostat@gmail.com", 
-           role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-0935-007X")),
+    person("Yi", "Liu",
+               email = "yi.iu.biostat@gmail.com", 
+               role = c("aut", "cre"),
+               comment = c(ORCID = "0000-0002-0935-007X")),
     person("Alexander", "Levis", 
-           email = "alevis@cmu.edu", 
-           role = "aut"),
+               email = "alevis@cmu.edu", 
+               role = "aut"),
     person("Larry", "Han", 
-           email = "lar.han@northeastern.edu", 
-           role = "aut")
-)
+               email = "lar.han@northeastern.edu", 
+               role = "aut"))
 Maintainer: Yi Liu <yi.iu.biostat@gmail.com>
-Description: The package implements the conformal inference for constructing 
-    individualized prediction intervals on missing outcomes for a target site, 
-    using multi-source site data with some potentially biased source sites 
-    and data-adaptive weighting.
+Description: The package implements the conformal inference constructing individualized prediction intervals on missing outcomes on a target site, 
+             using multi-source site data (potentially biased) and data-adaptive weighting.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
