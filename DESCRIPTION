@@ -3,14 +3,14 @@ Type: Package
 Title: Multi-Source Conformal Inference Under Distribution Shift
 Version: 1.1
 Authors@R: c(
-    person("Yi", "Liu", 
+	person("Yi", "Liu", 
 		email="yi.iu.biostat@gmail.com", 
 		role=c("aut", "cre"),
 		comment=c(ORCID="0000-0002-0935-007X")),
-    person("Alexander", "Levis", 
+	person("Alexander", "Levis", 
 		email="alevis@cmu.edu", 
 		role="aut"),
-    person("Larry", "Han", 
+        person("Larry", "Han", 
 		email="lar.han@northeastern.edu", 
 		role="aut")
 )
