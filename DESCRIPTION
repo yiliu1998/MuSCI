@@ -1,12 +1,25 @@
 Package: MuSCI
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: Multi-Source Conformal Inference Under Distribution Shift
+Version: 1.1
+Authors@R: c(
+    person("Yi", "Liu", 
+           email = "yi.iu.biostat@gmail.com", 
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-0935-007X")),
+    person("Alexander", "Levis", 
+           email = "alevis@cmu.edu", 
+           role = "aut"),
+    person("Larry", "Han", 
+           email = "lar.han@northeastern.edu", 
+           role = "aut")
+)
+Maintainer: Yi Liu <yi.iu.biostat@gmail.com>
+Description: The package implements the conformal inference for constructing 
+    individualized prediction intervals on missing outcomes for a target site, 
+    using multi-source site data with some potentially biased source sites 
+    and data-adaptive weighting.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.2
