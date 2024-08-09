@@ -13,7 +13,7 @@ devtools::install_github("yiliu1998/Multi-Source-Conformal")
 You can download and run this Rmd file ([click here](https://github.com/yiliu1998/Multi-Source-Conformal/tree/main/vignettes)) in your R Studio after downloading the package, which gives an illustrative example of our package.  
 
 ## Contact 
-The R code is maintained by Yi Liu (Please feel free to reach out at yi.liu.biostat[at]gmail[dot]com, if you have any questions). 
+The R code is maintained by Yi Liu (Please feel free to reach out at yi.liu.biostat@gmail.com, if you have any questions). 
 
 ## Reference
 Please cite the following paper:
