@@ -9,8 +9,8 @@ if (!require("devtools")) install.packages("devtools")
 devtools::install_github("yiliu1998/Multi-Source-Conformal")
 ```
 
-## Demonstration
-You can download and run this Rmd file ([click here](https://github.com/yiliu1998/Multi-Source-Conformal/tree/main/vignettes)) in your R Studio after downloading the package, which gives an illustrative example of our package.  
+## Usage
+An Rmd file for illustration ([click here](https://github.com/yiliu1998/Multi-Source-Conformal/tree/main/vignettes)) is available to download, which gives an example of the use of our package using a simulated dataset. Please run it on your local after you install the package. 
 
 ## Contact 
 The R code is maintained by Yi Liu (Please feel free to reach out at yi.liu.biostat@gmail.com, if you have any questions). 
@@ -18,4 +18,4 @@ The R code is maintained by Yi Liu (Please feel free to reach out at yi.liu.bios
 ## Reference
 Please cite the following paper:
 
-Liu, Y., Levis, A., Normand, S., & Han, L. (2024). Multi-source conformal inference under distribution shift. International Conference on Machine Learning, PMLR, accepted. 
+Liu, Y., Levis, A., Normand, S., & Han, L. (2024). Multi-source conformal inference under distribution shift. Proceedings of the 41th International Conference on Machine Learning. 
