@@ -1,5 +1,5 @@
 # MuSCI
-`MuSCI` is an R package with implementing multi-source conformal inference under distribution shift. Please refer to the main paper [Liu et al. (2024)](https://proceedings.mlr.press/v235/liu24ag.html) at PMLR, ICML 2024, for the methodology. 
+`MuSCI` is an R package that implements multi-source conformal inference under distribution shift. Please refer to this main paper [Liu et al. (2024)](https://proceedings.mlr.press/v235/liu24ag.html) published at PMLR, ICML 2024, for the methodology part. Please cite the paper if you use our package. 
 
 ## Installation
 To install the latest version of the R package from GitHub, please run following commands in R:
