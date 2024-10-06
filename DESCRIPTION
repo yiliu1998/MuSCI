@@ -1,7 +1,7 @@
 Package: MuSCI
 Type: Package
 Title: Multi-Source Conformal Inference Under Distribution Shift
-Version: 1.1
+Version: 1.2
 Authors@R: c(
     person("Yi", "Liu",
                email = "yi.iu.biostat@gmail.com", 
@@ -14,8 +14,19 @@ Authors@R: c(
                email = "lar.han@northeastern.edu", 
                role = "aut"))
 Maintainer: Yi Liu <yi.iu.biostat@gmail.com>
-Description: The package implements the conformal inference constructing individualized prediction intervals on missing outcomes on a target site, 
-             using multi-source site data (potentially biased) and data-adaptive weighting.
+Description: The package implements the conformal inference constructing individualized prediction intervals on missing 
+             outcomes on a target site, using multi-source site data (potentially biased) and data-adaptive weighting.
+Imports:
+    MASS,
+    numDeriv,
+    rootSolve,
+    osqp,
+    densratio,
+    dplyr,
+    glmnet,
+    quantreg,
+    randomForest,
+    SuperLearner
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
