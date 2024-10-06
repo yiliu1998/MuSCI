@@ -23,17 +23,6 @@ MuSCI <- function(data.train,
                   p1=0.5,
                   seed=10012) {
 
-  library(MASS)
-  library(numDeriv)
-  library(rootSolve)
-  library(osqp)
-  library(densratio)
-  library(dplyr)
-  library(glmnet)
-  library(quantreg)
-  library(randomForest)
-  library(SuperLearner)
-
   ###############################################################################
   ##################            Data pre-processing           ###################
   ###############################################################################
