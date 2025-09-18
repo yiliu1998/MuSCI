@@ -18,4 +18,4 @@ The R code is maintained by Yi Liu (Please feel free to reach out at yi.liu.bios
 ## Reference
 Please cite the following paper:
 
-Yi Liu, Alexander Levis, Sharon-Lise Normand, Larry Han. Proceedings of the 41st International Conference on Machine Learning, Proceedings of Machine Learning Research, 235:31344-31382, 2024.
+Yi Liu, Alexander Levis, Sharon-Lise Normand, Larry Han (2024). <em>Proceedings of the 41st International Conference on Machine Learning, Proceedings of Machine Learning Research</em> 235:31344-31382.
